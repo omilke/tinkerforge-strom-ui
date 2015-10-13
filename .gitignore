@@ -1,0 +1,10 @@
+#IDE
+.settings/
+.classpath
+.project
+
+#build
+/target/
+
+#application
+/*.jar

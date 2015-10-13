@@ -1,0 +1,20 @@
+
+.left {
+	-fx-alignment: center-left;
+}
+
+.right {
+	-fx-alignment: center-right;
+}
+
+.center {
+	-fx-alignment: center;
+}
+
+.positive {
+	-fx-text-fill: green;
+}
+
+.negative {
+	-fx-text-fill: red;
+}
