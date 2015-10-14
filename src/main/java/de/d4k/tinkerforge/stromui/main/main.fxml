@@ -13,24 +13,21 @@
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.glyphfont.*?>
 
-<VBox fx:id="content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-	prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="de.d4k.tinkerforge.stromui.main.MainPresenter">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.d4k.tinkerforge.stromui.main.MainPresenter">
 	<children>
 		<MenuBar VBox.vgrow="NEVER">
 			<menus>
 				<Menu mnemonicParsing="false" text="Darstellung">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Graph" />
-						<MenuItem mnemonicParsing="false" text="Ampel" />
+						<MenuItem mnemonicParsing="false" onAction="#showGraph" text="Graph" />
+						<MenuItem mnemonicParsing="false" onAction="#showAmpel" text="Ampel" />
 					</items>
 					<graphic>
-						<FontAwesomeIconView glyphName="BAR_CHART"
-							size="15" />
+						<FontAwesomeIconView glyphName="BAR_CHART" size="15" />
 					</graphic>
 				</Menu>
 			</menus>
 		</MenuBar>
+		<AnchorPane fx:id="content" prefHeight="600.0" prefWidth="800.0" VBox.vgrow="ALWAYS" />
 	</children>
 </VBox>

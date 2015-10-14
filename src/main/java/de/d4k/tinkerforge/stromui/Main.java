@@ -1,16 +1,14 @@
 package de.d4k.tinkerforge.stromui;
 
-import de.d4k.tinkerforge.stromui.main.stromgraph.MeasurementHandler;
+import de.d4k.tinkerforge.stromui.main.stromgraph.MeasurementListHandler;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
-import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
 /**
@@ -50,7 +48,7 @@ public class Main extends Application {
 
 		
 
-		new MeasurementHandler(seriesData).start();
+		new MeasurementListHandler(seriesData).start();
 
 	}
 
