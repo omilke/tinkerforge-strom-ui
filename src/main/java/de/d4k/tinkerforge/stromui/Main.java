@@ -3,12 +3,14 @@ package de.d4k.tinkerforge.stromui;
 import de.d4k.tinkerforge.stromui.main.stromgraph.MeasurementHandler;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
 /**
@@ -23,11 +25,10 @@ public class Main extends Application {
 		launch(args);
 	}
 
-
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("tinkerforge-strom-ui");
-		
+
 		final CategoryAxis timeAxis = new CategoryAxis();
 		timeAxis.setLabel("Zeitpunkt");
 		timeAxis.setTickLabelRotation(45);
@@ -46,6 +47,8 @@ public class Main extends Application {
 		Scene scene = new Scene(lineChart, 800, 600);
 		stage.setScene(scene);
 		stage.show();
+
+		
 
 		new MeasurementHandler(seriesData).start();
 
