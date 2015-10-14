@@ -26,7 +26,7 @@ public class StromgraphPresenter implements Initializable {
 
 		prepareChart(stromChart);
 
-		new MeasurementHandler(chartData).start();
+		new MeasurementListHandler(chartData).start();
 
 	}
 
