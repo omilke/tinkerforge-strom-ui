@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -18,9 +21,17 @@ public class StromampelPresenter implements Initializable {
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 
-		System.out.println(icon);
+		LongProperty measuredValueProperty = new SimpleLongProperty();
 
+		measuredValueProperty.addListener((ChangeListener<? super Number>) (observable, oldValue, newValue) -> {
+			
+			if (oldValue != newValue) {
+				icon.setSize((newValue.longValue() * 10) + "");
+			}
+
+		});
+
+		new MeasurementValueUpdaterHandler(measuredValueProperty).start();
 	}
-
 
 }

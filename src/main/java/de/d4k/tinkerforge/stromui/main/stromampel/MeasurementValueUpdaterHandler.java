@@ -1,6 +1,6 @@
 package de.d4k.tinkerforge.stromui.main.stromampel;
 
-import java.time.LocalTime;
+import java.util.Random;
 
 import org.devoxx4kids.Bricklet;
 import org.devoxx4kids.BrickletReader;
@@ -9,8 +9,7 @@ import com.tinkerforge.BrickletVoltageCurrent;
 import com.tinkerforge.IPConnection;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.XYChart.Data;
+import javafx.beans.property.LongProperty;
 
 /**
  * Kümmert sich um das Verarbeiten der Messwerte.
@@ -18,17 +17,18 @@ import javafx.scene.chart.XYChart.Data;
  * @author Oliver Milke
  *
  */
-public class MeasurementLevelHandler extends Thread {
-	final ObservableList<Data<String, Number>> chartData;
+public class MeasurementValueUpdaterHandler extends Thread {
 
-	public MeasurementLevelHandler(final ObservableList<Data<String, Number>> chartData) {
-		
+	final LongProperty measuredValueProperty;
+
+	public MeasurementValueUpdaterHandler(final LongProperty measuredValueProperty) {
+
 		setDaemon(true);
 		setName("Measurement Thread");
 
-		this.chartData = chartData;
+		this.measuredValueProperty = measuredValueProperty;
 	}
-	
+
 	@Override
 	public void run() {
 		try {
@@ -38,31 +38,31 @@ public class MeasurementLevelHandler extends Thread {
 			System.out.println("Fehler beim Lesen des Stroms :(");
 			System.out.println(e);
 		}
-		
-	}
 
+	}
 
 	private void mockValues() {
 
-		long i = 0;
-		while (i++ < 1000000) {
+		while (true) {
 			try {
 				Thread.sleep(1000l);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-			addValue(getFormattedTimestamp(), i);
+
+			long value = Math.abs(new Random().nextLong() % 100);
+
+			setValue(value);
 		}
 
 	}
 
-	private void addValue(String label, Long value) {
-		
+	private void setValue(Long value) {
+
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				chartData.add(new Data<>(label, value));
+				measuredValueProperty.set(value);
 			}
 		});
 
@@ -81,14 +81,7 @@ public class MeasurementLevelHandler extends Thread {
 		ipcon.connect(BrickletReader.HOST, BrickletReader.PORT);
 
 		cv.setCurrentCallbackPeriod(1000l);
-		cv.addCurrentListener(current -> addValue(getFormattedTimestamp(), (long) current));
-
-	}
-
-	private String getFormattedTimestamp() {
-
-		LocalTime now = LocalTime.now();
-		return now.toString();
+		cv.addCurrentListener(current -> setValue((long) current));
 
 	}
 
