@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart.Data;
 
 /**
- * Kümmert sich um das Behandlen der Messwerte.
+ * Kümmert sich um das Verarbeiten der Messwerte.
  * 
  * @author Oliver Milke
  *
