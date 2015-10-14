@@ -54,7 +54,6 @@ public class MeasurementListHandler extends Thread {
 			
 			long value = Math.abs(new Random().nextLong() % 100);
 			
-			System.out.println("value " + value);
 			addValue(value);
 		}
 
