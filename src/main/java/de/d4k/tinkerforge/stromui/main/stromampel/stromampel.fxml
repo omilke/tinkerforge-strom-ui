@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.chart.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.glyphfont.*?>
+
+
+<GridPane alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.40"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.d4k.tinkerforge.stromui.main.stromampel.StromampelPresenter">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+	</rowConstraints>
+	<children>
+		<FontAwesomeIconView fx:id="icon"
+			fontSmoothingType="LCD" glyphName="BOLT" size="100"
+			GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+			GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+	</children>
+</GridPane>
