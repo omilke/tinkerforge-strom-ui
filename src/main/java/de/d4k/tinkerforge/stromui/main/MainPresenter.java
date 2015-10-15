@@ -3,6 +3,8 @@ package de.d4k.tinkerforge.stromui.main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.d4k.tinkerforge.stromui.main.spannungampel.SpannungampelView;
+import de.d4k.tinkerforge.stromui.main.spannunggraph.SpannunggraphView;
 import de.d4k.tinkerforge.stromui.main.stromampel.StromampelView;
 import de.d4k.tinkerforge.stromui.main.stromgraph.StromgraphView;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ public class MainPresenter implements Initializable {
 	public void initialize(final URL url, final ResourceBundle rb) {
 
 		// default: Graph anzeigen
-		showGraph();
+		showStromGraph();
 	}
 
 	private void displayView(final Parent view) {
@@ -37,12 +39,20 @@ public class MainPresenter implements Initializable {
 		this.content.getChildren().add(view);
 	}
 
-	public void showGraph() {
+	public void showStromGraph() {
 		displayView(new StromgraphView().getView());
 	}
 
-	public void showAmpel() {
+	public void showStromAmpel() {
 		displayView(new StromampelView().getView());
+	}
+	
+	public void showSpannungGraph() {
+		displayView(new SpannunggraphView().getView());
+	}
+
+	public void showSpannungAmpel() {
+		displayView(new SpannungampelView().getView());
 	}
 
 }

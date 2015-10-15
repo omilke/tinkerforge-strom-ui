@@ -19,8 +19,10 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="Darstellung">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#showGraph" text="Graph" />
-						<MenuItem mnemonicParsing="false" onAction="#showAmpel" text="Ampel" />
+						<MenuItem mnemonicParsing="false" onAction="#showStromGraph" text="Stromgraph" />
+						<MenuItem mnemonicParsing="false" onAction="#showStromAmpel" text="Stromampel" />
+						<MenuItem mnemonicParsing="false" onAction="#showSpannungGraph" text="Spannungsgraph" />
+						<MenuItem mnemonicParsing="false" onAction="#showSpannungAmpel" text="Spannungsampel" />
 					</items>
 					<graphic>
 						<FontAwesomeIconView glyphName="BAR_CHART" size="15" />
