@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.d4k.tinkerforge.stromui.main.ampelhacker.AmpelHackerPresenter">
+    <center>
+        <TextArea fx:id="textArea" prefHeight="161.0" prefWidth="550.0" BorderPane.alignment="CENTER"
+                />
+    </center>
+    <top>
+        <Label fx:id="label" prefHeight="134.0" prefWidth="550.0" text="Gib hier deinen Ampel-Code ein:"
+               BorderPane.alignment="CENTER"/>
+    </top>
+    <bottom>
+        <Button fx:id="bStart" onAction="#buttonPressed" mnemonicParsing="false" text="Start"
+                BorderPane.alignment="CENTER"/>
+    </bottom>
+</BorderPane>

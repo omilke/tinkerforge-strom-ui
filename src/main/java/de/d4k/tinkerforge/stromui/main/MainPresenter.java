@@ -3,6 +3,8 @@ package de.d4k.tinkerforge.stromui.main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.d4k.tinkerforge.stromui.main.ampelhacker.AmpelHackerView;
+import de.d4k.tinkerforge.stromui.main.ledampel.LEDampelView;
 import de.d4k.tinkerforge.stromui.main.spannungampel.SpannungampelView;
 import de.d4k.tinkerforge.stromui.main.spannunggraph.SpannunggraphView;
 import de.d4k.tinkerforge.stromui.main.stromampel.StromampelView;
@@ -55,4 +57,10 @@ public class MainPresenter implements Initializable {
 		displayView(new SpannungampelView().getView());
 	}
 
+	public void showLedAmpel() {
+		displayView(new LEDampelView().getView());
+	}
+	public void showAmpelHacker() {
+		displayView(new AmpelHackerView().getView());
+	}
 }

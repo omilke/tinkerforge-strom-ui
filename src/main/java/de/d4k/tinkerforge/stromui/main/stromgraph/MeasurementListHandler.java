@@ -33,8 +33,7 @@ public class MeasurementListHandler extends Thread {
 	@Override
 	public void run() {
 		try {
-			// connectBricklet();
-			mockValues();
+			 connectBricklet(); 			//mockValues();
 		} catch (Exception e) {
 			System.out.println("Fehler beim Lesen des Stroms :(");
 			System.out.println(e);

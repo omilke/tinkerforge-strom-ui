@@ -23,7 +23,7 @@ public class StromampelPresenter implements Initializable {
 
 		LongProperty measuredValueProperty = new SimpleLongProperty();
 
-		measuredValueProperty.addListener((ChangeListener<? super Number>) (observable, oldValue, newValue) -> {
+		measuredValueProperty.addListener((observable, oldValue, newValue) -> {
 			
 			if (oldValue != newValue) {
 				icon.setSize((newValue.longValue() * 10) + "");

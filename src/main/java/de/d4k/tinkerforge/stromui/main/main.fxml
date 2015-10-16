@@ -23,6 +23,8 @@
 						<MenuItem mnemonicParsing="false" onAction="#showStromAmpel" text="Stromampel" />
 						<MenuItem mnemonicParsing="false" onAction="#showSpannungGraph" text="Spannungsgraph" />
 						<MenuItem mnemonicParsing="false" onAction="#showSpannungAmpel" text="Spannungsampel" />
+						<MenuItem mnemonicParsing="false" onAction="#showLedAmpel" text="LED-Ampel" />
+						<MenuItem mnemonicParsing="false" onAction="#showAmpelHacker" text="Ampel-Programmierung" />
 					</items>
 					<graphic>
 						<FontAwesomeIconView glyphName="BAR_CHART" size="15" />
