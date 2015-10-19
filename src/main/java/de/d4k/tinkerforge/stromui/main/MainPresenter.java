@@ -3,6 +3,8 @@ package de.d4k.tinkerforge.stromui.main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.airhacks.afterburner.views.FXMLView;
+
 import de.d4k.tinkerforge.stromui.main.ampelhacker.AmpelHackerView;
 import de.d4k.tinkerforge.stromui.main.ledampel.LEDampelView;
 import de.d4k.tinkerforge.stromui.main.spannungampel.SpannungampelView;
@@ -20,7 +22,9 @@ import javafx.scene.layout.AnchorPane;
 public class MainPresenter implements Initializable {
 
 	@FXML
-	AnchorPane content;
+	private AnchorPane content;
+	
+	private FXMLView activeView;
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
@@ -29,38 +33,47 @@ public class MainPresenter implements Initializable {
 		showStromGraph();
 	}
 
-	private void displayView(final Parent view) {
+	private void displayView(final FXMLView view) {
+		
+		if (this.activeView instanceof BackgroundTaskView) {
+			BackgroundTaskView backgroundTaskView = (BackgroundTaskView) this.activeView;
+			backgroundTaskView.cancelBackgroundTask();
+		}
 
 		this.content.getChildren().clear();
 		
-		AnchorPane.setTopAnchor(view, 0.0);
-		AnchorPane.setLeftAnchor(view, 0.0);
-		AnchorPane.setBottomAnchor(view, 0.0);
-		AnchorPane.setRightAnchor(view, 0.0);
+		Parent viewContent = view.getView();
 		
-		this.content.getChildren().add(view);
+		AnchorPane.setTopAnchor(viewContent, 0.0);
+		AnchorPane.setLeftAnchor(viewContent, 0.0);
+		AnchorPane.setBottomAnchor(viewContent, 0.0);
+		AnchorPane.setRightAnchor(viewContent, 0.0);
+		
+		this.content.getChildren().add(viewContent);
+		this.activeView = view;
 	}
 
 	public void showStromGraph() {
-		displayView(new StromgraphView().getView());
+		displayView(new StromgraphView());
 	}
 
 	public void showStromAmpel() {
-		displayView(new StromampelView().getView());
+		displayView(new StromampelView());
 	}
 	
 	public void showSpannungGraph() {
-		displayView(new SpannunggraphView().getView());
+		displayView(new SpannunggraphView());
 	}
 
 	public void showSpannungAmpel() {
-		displayView(new SpannungampelView().getView());
+		displayView(new SpannungampelView());
 	}
 
 	public void showLedAmpel() {
-		displayView(new LEDampelView().getView());
+		displayView(new LEDampelView());
 	}
+	
 	public void showAmpelHacker() {
-		displayView(new AmpelHackerView().getView());
+		displayView(new AmpelHackerView());
 	}
 }

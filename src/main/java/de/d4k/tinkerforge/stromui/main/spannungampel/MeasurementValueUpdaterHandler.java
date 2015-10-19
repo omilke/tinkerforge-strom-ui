@@ -6,10 +6,12 @@ import org.devoxx4kids.Bricklet;
 import org.devoxx4kids.BrickletReader;
 
 import com.tinkerforge.BrickletVoltageCurrent;
+import com.tinkerforge.BrickletVoltageCurrent.VoltageListener;
 import com.tinkerforge.IPConnection;
 
 import javafx.application.Platform;
 import javafx.beans.property.LongProperty;
+import javafx.concurrent.Task;
 
 /**
  * Kümmert sich um das Verarbeiten der Messwerte.
@@ -17,53 +19,59 @@ import javafx.beans.property.LongProperty;
  * @author Oliver Milke
  *
  */
-public class MeasurementValueUpdaterHandler extends Thread {
+public class MeasurementValueUpdaterHandler extends Task<Void> {
 
-	final LongProperty measuredValueProperty;
+	private final LongProperty measuredValueProperty;
+	
+	private BrickletVoltageCurrent cv;
+	private VoltageListener voltageListener;
 
 	public MeasurementValueUpdaterHandler(final LongProperty measuredValueProperty) {
 
-		setDaemon(true);
-		setName("Measurement Thread");
-
 		this.measuredValueProperty = measuredValueProperty;
 	}
-
+	
 	@Override
-	public void run() {
+	protected Void call() throws Exception {
+
 		try {
-			 connectBricklet(); 			//mockValues();
+			// connectBricklet();
+			mockValues();
 		} catch (Exception e) {
 			System.out.println("Fehler beim Lesen der Spannung :(");
 			System.out.println(e);
 		}
 
+		return null;
+	}
+	
+	@Override
+	protected void cancelled() {
+		
+		if (cv != null) {
+			cv.removeVoltageListener(voltageListener);
+		}
 	}
 
+	@SuppressWarnings("unused")
 	private void mockValues() {
 
-		while (true) {
+		while (!isCancelled()) {
 			try {
 				Thread.sleep(1000l);
+
+				long value = Math.abs(new Random().nextLong() % 100);
+				setValue(value);
+				
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				if (isCancelled()) {
+					System.out.println("Task wurde beendet...");
+					break;
+				} else {
+					e.printStackTrace();
+				}
 			}
-
-			long value = Math.abs(new Random().nextLong() % 100);
-
-			setValue(value);
 		}
-
-	}
-
-	private void setValue(Long value) {
-
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				measuredValueProperty.set(value);
-			}
-		});
 
 	}
 
@@ -75,13 +83,26 @@ public class MeasurementValueUpdaterHandler extends Thread {
 				.getBrickletByDeviceId(BrickletVoltageCurrent.DEVICE_IDENTIFIER);
 
 		IPConnection ipcon = new IPConnection();
-		BrickletVoltageCurrent cv = new BrickletVoltageCurrent(currentVoltageBricklet.getUid(), ipcon);
+		cv = new BrickletVoltageCurrent(currentVoltageBricklet.getUid(), ipcon);
 
 		ipcon.connect(BrickletReader.HOST, BrickletReader.PORT);
 
+		voltageListener = voltage -> setValue((long) voltage);
+		cv.addVoltageListener(voltageListener);
 		cv.setVoltageCallbackPeriod(1000l);
-		cv.addVoltageListener(voltage -> setValue((long) voltage));
 
 	}
+	
+	private void setValue(Long value) {
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				measuredValueProperty.set(value);
+			}
+		});
+
+	}
+
 
 }
