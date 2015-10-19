@@ -17,17 +17,17 @@ public class Ampel {
         }
 
         public Ampel luefter() throws TimeoutException, NotConnectedException {
-            industrialQuadRelay.setValue(1 << 0 | industrialQuadRelay.getValue());
+            industrialQuadRelay.setValue(1 | industrialQuadRelay.getValue());
             return this;
         }
 
         public Ampel luefterAus() throws TimeoutException, NotConnectedException {
-            industrialQuadRelay.setValue(~(1 << 0) & industrialQuadRelay.getValue());
+            industrialQuadRelay.setValue(~1 & industrialQuadRelay.getValue());
             return this;
         }
 
         public Ampel rot() throws TimeoutException, NotConnectedException {
-            industrialQuadRelay.setValue(1 << 1);
+            industrialQuadRelay.setValue(1 << 1 | industrialQuadRelay.getValue());
             return this;
         }
 
@@ -37,7 +37,7 @@ public class Ampel {
         }
 
         public Ampel gruen() throws TimeoutException, NotConnectedException {
-            industrialQuadRelay.setValue(1 << 3);
+            industrialQuadRelay.setValue(1 << 3 | industrialQuadRelay.getValue());
             return this;
         }
 
@@ -47,7 +47,7 @@ public class Ampel {
         }
 
         public Ampel gelb() throws TimeoutException, NotConnectedException {
-            industrialQuadRelay.setValue(1 << 2);
+            industrialQuadRelay.setValue(1 << 2 | industrialQuadRelay.getValue());
             return this;
         }
 
