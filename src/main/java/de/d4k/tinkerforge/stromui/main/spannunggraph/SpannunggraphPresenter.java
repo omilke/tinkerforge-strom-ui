@@ -3,7 +3,9 @@ package de.d4k.tinkerforge.stromui.main.spannunggraph;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.d4k.tinkerforge.stromui.main.spannungampel.MeasurementValueUpdaterHandler;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -20,13 +22,18 @@ public class SpannunggraphPresenter implements Initializable {
 	LineChart<String, Number> spannungChart;
 
 	private ObservableList<Data<String, Number>> chartData;
+	
+	private Task<Void> measuringTask;
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
 
 		prepareChart(spannungChart);
 
-		new MeasurementListHandler(chartData).start();
+		this.measuringTask = new MeasurementListHandler(chartData);
+		Thread t = new Thread(this.measuringTask);
+		t.setDaemon(true);
+		t.start();
 
 	}
 
@@ -44,6 +51,12 @@ public class SpannunggraphPresenter implements Initializable {
 
 		chart.getData().add(series);
 
+	}
+
+	public void cancelTask() {
+		
+		this.measuringTask.cancel();
+		
 	}
 
 }

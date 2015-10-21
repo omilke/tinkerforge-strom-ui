@@ -7,10 +7,12 @@ import org.devoxx4kids.Bricklet;
 import org.devoxx4kids.BrickletReader;
 
 import com.tinkerforge.BrickletVoltageCurrent;
+import com.tinkerforge.BrickletVoltageCurrent.VoltageListener;
 import com.tinkerforge.IPConnection;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.scene.chart.XYChart.Data;
 
 /**
@@ -18,83 +20,102 @@ import javafx.scene.chart.XYChart.Data;
  *
  * @author Oliver Milke
  */
-public class MeasurementListHandler extends Thread {
-    final ObservableList<Data<String, Number>> chartData;
+public class MeasurementListHandler extends Task<Void> {
 
-    public MeasurementListHandler(final ObservableList<Data<String, Number>> chartData) {
+	final ObservableList<Data<String, Number>> chartData;
 
-        setDaemon(true);
-        setName("Measurement Thread");
+	private BrickletVoltageCurrent cv;
+	private VoltageListener voltageListener;
 
-        this.chartData = chartData;
-    }
+	public MeasurementListHandler(final ObservableList<Data<String, Number>> chartData) {
 
-    @Override
-    public void run() {
-        try {
-            connectBricklet();            //mockValues();
-        } catch (Exception e) {
-            System.out.println("Fehler beim Lesen der Spannung :(");
-            System.out.println(e);
-        }
+		this.chartData = chartData;
+	}
 
-    }
+	@Override
+	protected Void call() throws Exception {
 
+		try {
+			// connectBricklet();
+			mockValues();
+		} catch (Exception e) {
+			System.out.println("Fehler beim Lesen der Spannung :(");
+			System.out.println(e);
+		}
 
-    private void mockValues() {
+		return null;
 
-        while (true) {
-            try {
-                Thread.sleep(1000l);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+	}
 
-            long value = Math.abs(new Random().nextLong() % 100);
+	@Override
+	protected void cancelled() {
 
-            addValue(value);
-        }
+		if (cv != null) {
+			cv.removeVoltageListener(voltageListener);
+		}
+	}
 
-    }
+	@SuppressWarnings("unused")
+	private void mockValues() {
 
-    private void addValue(Long value) {
+		while (!isCancelled()) {
+			try {
+				Thread.sleep(1000l);
 
-        String label = getFormattedTimestamp();
+				long value = Math.abs(new Random().nextLong() % 100);
+				addValue(value);
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                chartData.add(new Data<>(label, value));
-            }
-        });
+			} catch (InterruptedException e) {
+				if (isCancelled()) {
+					break;
+				} else {
+					e.printStackTrace();
+				}
+			}
+		}
 
-    }
+		System.out.println("Task wurde beendet...");
+	}
 
-    @SuppressWarnings("unused")
-    private void connectBricklet() throws Exception {
-        System.out.println("hallo");
-        BrickletReader brickletReader = new BrickletReader();
-        Bricklet currentVoltageBricklet = brickletReader.readBricklets()
-                .getBrickletByDeviceId(BrickletVoltageCurrent.DEVICE_IDENTIFIER);
+	@SuppressWarnings("unused")
+	private void connectBricklet() throws Exception {
 
-        IPConnection ipcon = new IPConnection();
-        BrickletVoltageCurrent cv = new BrickletVoltageCurrent(currentVoltageBricklet.getUid(), ipcon);
+		BrickletReader brickletReader = new BrickletReader();
+		Bricklet currentVoltageBricklet = brickletReader.readBricklets()
+				.getBrickletByDeviceId(BrickletVoltageCurrent.DEVICE_IDENTIFIER);
 
-        ipcon.connect(BrickletReader.HOST, BrickletReader.PORT);
+		IPConnection ipcon = new IPConnection();
+		cv = new BrickletVoltageCurrent(currentVoltageBricklet.getUid(), ipcon);
 
-        cv.setVoltageCallbackPeriod(1000l);
-        cv.addVoltageListener(voltage -> {
-            System.out.println("-->" + voltage);
-            addValue((long) voltage);
-        });
+		ipcon.connect(BrickletReader.HOST, BrickletReader.PORT);
 
-    }
+		voltageListener = voltage -> {
+			addValue((long) voltage);
+		};
 
-    private String getFormattedTimestamp() {
+		cv.addVoltageListener(voltageListener);
+		cv.setVoltageCallbackPeriod(1000l);
 
-        LocalTime now = LocalTime.now();
-        return now.toString();
+	}
 
-    }
+	private void addValue(Long value) {
+
+		String label = getFormattedTimestamp();
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				chartData.add(new Data<>(label, value));
+			}
+		});
+
+	}
+
+	private String getFormattedTimestamp() {
+
+		LocalTime now = LocalTime.now();
+		return now.toString();
+
+	}
 
 }
