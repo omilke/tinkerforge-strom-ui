@@ -65,13 +65,14 @@ public class MeasurementValueUpdaterHandler extends Task<Void> {
 				
 			} catch (InterruptedException e) {
 				if (isCancelled()) {
-					System.out.println("Task wurde beendet...");
 					break;
 				} else {
 					e.printStackTrace();
 				}
 			}
 		}
+		
+		System.out.println("Task wurde beendet...");
 
 	}
 

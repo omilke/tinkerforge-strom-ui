@@ -15,8 +15,4 @@ public class SpannungampelView extends FXMLView implements BackgroundTaskView {
 		
 		presenter.cancelTask();
 	}
-	
-	
-	
-	
 }
