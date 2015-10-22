@@ -3,7 +3,6 @@ package de.d4k.tinkerforge.stromui.main.stromgraph;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import de.d4k.tinkerforge.stromui.main.stromampel.MeasurementValueUpdaterHandler;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;

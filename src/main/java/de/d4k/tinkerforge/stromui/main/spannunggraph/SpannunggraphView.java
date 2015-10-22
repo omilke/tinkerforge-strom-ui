@@ -3,7 +3,6 @@ package de.d4k.tinkerforge.stromui.main.spannunggraph;
 import com.airhacks.afterburner.views.FXMLView;
 
 import de.d4k.tinkerforge.stromui.main.BackgroundTaskView;
-import de.d4k.tinkerforge.stromui.main.spannungampel.SpannungampelPresenter;
 
 /**
  * @author Oliver Milke
