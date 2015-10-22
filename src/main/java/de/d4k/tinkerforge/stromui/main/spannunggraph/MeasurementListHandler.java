@@ -36,8 +36,8 @@ public class MeasurementListHandler extends Task<Void> {
 	protected Void call() throws Exception {
 
 		try {
-			// connectBricklet();
-			mockValues();
+			 connectBricklet();
+//			mockValues();
 		} catch (Exception e) {
 			System.out.println("Fehler beim Lesen der Spannung :(");
 			System.out.println(e);
