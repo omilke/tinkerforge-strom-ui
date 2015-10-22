@@ -1,6 +1,47 @@
-https://www.tinkerforge.com/de/shop
-  - Masterbrick 2.1
-  - Quad Relay Bricklet
-  - Current / Voltage Bricklet
+- Raspberry Pi oder anderen PC mit freiem USB und installiertem Oracle JDK8
+- Stromversorung Raspberry Pi
 
-Weitere Elektronik-Teile
+https://www.tinkerforge.com/de/shop
+- Masterbrick 2.1 + Mini USB Kabel
+- Quad Relay Bricklet + Kabel 50cm
+- Current / Voltage Bricklet + Kabel 50cm
+- Draht 10m (rot), geschnitten und abisoliert in folgenden Längen:
+   - 4x 8cm für die Verbindung Quad-Relay zu Lüsterklemme
+   - 1x 10cm für die Verbindung Lüsterklemme zu Steckboard Plus-Pol
+   - 4x 10cm für die Verbindung Quad-Relay zu Steckboard Plus-Pol der LEDs/Lüfter
+   - 1x 10cm für die Verbindung Voltage-Current-Bricklet-IN (+) zu Cu-Streifen in letzter Kartoffel
+   - 1x 10cm für die Verbindung Voltage-Current-Bricklet-OUT (+) zu Steckboard Plus-Pol
+- Draht 10m (blau), geschnitten und abisoliert in folgenden Längen:
+   - 5x 15cm für die Verbindungen zwischen den Kartoffeln (mindestens 2cm abisolieren)
+   - 4x 3cm für die Verbindung Steckboard Minus-Pol der LEDs/Lüfter zu Steckboard Minus-Pol
+   - 1x 10cm für die Verbindung Voltage-Current-Bricklet-IN (-) zu Zn-Streifen in erster Kartoffel
+   - 1x 10cm für die Verbindung Voltage-Current-Bricklet-OUT (-) zu Steckboard Minus-Pol
+
+https://www.reichelt.de
+- 5x LED 5MM 5V GE :: Gelbe 5mm-LED mit Vorwiderstand, 5 Volt (eine wird nur benötigt, aber Backup ist gut)
+
+ https://www.reichelt.de/LED-5MM-5V-GE/3/index.html?&ACTION=3&LA=446&ARTICLE=54110&artnr=LED+5MM+5V+GE&SEARCH=5mm-LED+mit+Vorwiderstand
+
+- 5x LED 5MM 5V GN :: Grüne 5mm-LED mit Vorwiderstand, 5 Volt (eine wird nur benötigt, aber Backup ist gut)
+
+ https://www.reichelt.de/LED-5MM-5V-GN/3/index.html?&ACTION=3&LA=446&ARTICLE=54108&artnr=LED+5MM+5V+GN&SEARCH=5mm-LED+mit+Vorwiderstand
+
+- 5x LED 5MM 5V RT :: Rote 5mm-LED mit Vorwiderstand, 5 Volt (eine wird nur benötigt, aber Backup ist gut :)
+
+ https://www.reichelt.de/LED-5MM-5V-RT/3/index.html?&ACTION=3&LA=446&ARTICLE=54104&artnr=LED+5MM+5V+RT&SEARCH=5mm-LED+mit+Vorwiderstand
+
+- 1x CB LKNT 2,5 :: Lüsterklemme, abdrehbar, 2,5 mm², natur (eine wird nur benötigt, aber Backup ist gut :)
+
+ https://www.reichelt.de/CB-LKNT-2-5/3/index.html?&ACTION=3&LA=446&ARTICLE=133925&artnr=CB+LKNT+2%2C5&SEARCH=CB+LKNT+2%2C5
+
+- 1x STECKBOARD SB-1 :: Experimentier-Steckboard 730 Kontakte
+
+ https://www.reichelt.de/STECKBOARD-SB-1/3/index.html?&ACTION=3&LA=446&ARTICLE=139506&artnr=STECKBOARD+SB-1&SEARCH=STECKBOARD+SB-1
+
+- 1x LÜFTER-4010 5V :: Lüfter, 5V DC , 0,9 W, 5800 U/min
+
+ https://www.reichelt.de/L-FTER-4010-5V/3/index.html?&ACTION=3&LA=446&ARTICLE=43677&artnr=L%C3%9CFTER-4010+5V&SEARCH=L%DCFTER-4010+5V
+
+Lokale Spenglerei:
+- 6x Kupfer-Streifen und 6x Zink-Streifen (jeweils 10cm lang, 1cm breit, 0,8mm dick mit einem kleinen Bohrloch an einem Ende zum Durchstecken der Drähte)
+- 6x große Kartoffel
