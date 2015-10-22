@@ -1,0 +1,6 @@
+https://www.tinkerforge.com/de/shop
+  - Masterbrick 2.1
+  - Quad Relay Bricklet
+  - Current / Voltage Bricklet
+
+Weitere Elektronik-Teile
