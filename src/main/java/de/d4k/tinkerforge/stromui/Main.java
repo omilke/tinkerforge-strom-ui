@@ -1,6 +1,7 @@
 package de.d4k.tinkerforge.stromui;
 
-import de.d4k.tinkerforge.stromui.main.stromgraph.MeasurementListHandler;
+import de.d4k.tinkerforge.stromui.main.spannunggraph.MeasurementListHandler;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -46,9 +47,9 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 
-		
-
-		new MeasurementListHandler(seriesData).start();
+		Thread thread = new Thread(new MeasurementListHandler(seriesData));
+		thread.setDaemon(true);
+		thread.start();
 
 	}
 

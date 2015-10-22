@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.value.ChangeListener;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -17,6 +17,8 @@ public class StromampelPresenter implements Initializable {
 
 	@FXML
 	FontAwesomeIconView icon;
+	
+	private Task<Void> measuringTask;
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle rb) {
@@ -31,7 +33,16 @@ public class StromampelPresenter implements Initializable {
 
 		});
 
-		new MeasurementValueUpdaterHandler(measuredValueProperty).start();
+		this.measuringTask = new MeasurementValueUpdaterHandler(measuredValueProperty);
+		Thread t = new Thread(this.measuringTask);
+		t.setDaemon(true);
+		t.start();
+	}
+	
+	public void cancelTask() {
+		
+		this.measuringTask.cancel();
+		
 	}
 
 }
